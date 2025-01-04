@@ -1,0 +1,27 @@
+[package]
+name = "is31fl3728-rs"
+authors = ["Leonid Vygovskiy <leonid.vygovskiy@gmail.com>"]
+version = "0.9.0"
+edition = "2021"
+categories = ["embedded", "hardware-support", "no-std"]
+keywords = ["is31fl3728", "led-matrix", "driver", "embedded-hal-driver"]
+description = "Rust embedded driver for is31fl3728 - led-matrix controller"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+rust-version = "1.83.0"
+
+include = [
+    "/src/*.rs",
+    "/Cargo.toml",
+    "/README.md",
+    "/LICENSE-MIT",
+    "/LICENSE-APACHE",
+]
+
+[dependencies]
+embedded-hal = "1.0.0"
+rtt-target = {version = "0.6.1", optional = true}
+
+[features]
+rtt-debug=["dep:rtt-target"]
+
