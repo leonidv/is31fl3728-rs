@@ -1,3 +1,5 @@
+#![doc = include_str!("../README.md")]
+
 #![no_std]
 
 use core::{fmt::Debug, ops::{Range, Shr}};
@@ -14,6 +16,7 @@ pub enum Error<E> {
     InvalidRowsCount,
 }
 
+/// Enumeration of all supported sizes of matrices.
 #[derive(Clone, Copy)]
 #[repr(u8)]
 pub enum MatrixDimensions {
@@ -23,6 +26,7 @@ pub enum MatrixDimensions {
     M5x11 = 0b11,
 }
 
+/// All supported lighting intensity. 
 #[derive(Clone, Copy)]
 #[repr(u8)]
 pub enum LightingIntensity {
@@ -43,6 +47,7 @@ pub enum LightingIntensity {
     C75mA = 0b0111
 }
 
+/// All supported Audio input gains
 #[derive(Clone, Copy)]
 #[repr(u8)]
 pub enum AudioInputGain {
@@ -56,6 +61,7 @@ pub enum AudioInputGain {
     GMinus6dB = 0b111
 }
 
+/// Driver 
 pub struct IS31FL3728<I2C> {
     i2c: I2C,
     address: u8,
@@ -83,6 +89,7 @@ where
     I2C: I2c<Error = E>,
     E: Debug,
 {
+    /// Create instance of driver
     pub fn new(
         i2c: I2C,
         address: u8,
@@ -159,7 +166,7 @@ where
     }
 
     /// Send data to temporary registers.
-    /// <div class="warning">`row_number` starts from 1.
+    /// <div class="warning">`row_number` starts from 1.</div>
     pub fn send_column(&mut self, column_number: u8, column: u8) -> Result<(), E> {
         let msg = concat!("send column: ", stringify!(column_number));
         self.debug(msg, column);
@@ -168,6 +175,7 @@ where
     }
 
     /// Send data to temporary register and update columns registers.
+    /// <div class="warning">`row_number` starts from 1.</div>
     pub fn draw_column(&mut self, column_number: u8, column: u8) -> Result<(), E> {
         self.send_column(column_number, column)?;
         self.update()
@@ -204,26 +212,25 @@ where
         Ok(())
     }
 
-
+    /// Enable audio equalize
     pub fn audio_eq_enable(&mut self) -> Result<(),E> {
         let configuration = 0b0_1_000000;
         self.debug("Enable audio eq", configuration);
         self.i2c.write(self.address, &[AUDIO_EQ_ADDRESS,configuration])
     }
 
+    /// Disable audio equalize
     pub fn audio_eq_disable(&mut self) -> Result<(),E> {
         let configuration = 0b0_0_000000;
         self.debug("Disable audio eq", configuration);
         self.i2c.write(self.address, &[AUDIO_EQ_ADDRESS,configuration])
     }
     
-
-
     /// Send data to temporary registers and update columns registers.
     /// Picture is array of rows. 
     /// 
     /// Use this method to simplify a work with led-matrix-editors like this one: 
-    /// https://xantorohara.github.io/led-matrix-editor/
+    /// <https://xantorohara.github.io/led-matrix-editor/>
     pub fn draw_bitmap(&mut self, picture: &[u8;8]) ->Result<(),E> {
         let mut column_mask : u8 = 0b1000_0000;
         for column_idx in 0..=7 {
@@ -244,7 +251,8 @@ where
         self.update()
     }
 
-    /// Set all led's to off
+    /// Set all led's to off. If you want just turn off matrix without 
+    /// changing picture, use `software_shutdown`
     pub fn clear(&mut self) -> Result<(), E> {
         for i in 1..=self.columns_count {
             self.send_column(i, 0)?;
@@ -261,11 +269,14 @@ where
         self.update()
     }
 
+    /// Turn off matrix output with saving all registry.
+    /// Use `software_on` to return image
     pub fn software_shutdown(&mut self) -> Result<(),E> {
         let configuration = self.configuration_register | 0b1_0000_0_00;
         self.write_config(configuration)
     }
 
+    /// Turn on matrix output
     pub fn software_on(&mut self) -> Result<(),E> {
         let configuration = self.configuration_register & 0b0_1111_1_11;
         self.write_config(configuration)

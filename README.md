@@ -1,8 +1,15 @@
 # Rust IS31FL3728 audio modulated matrix led driver
 
+## Usage
+Add the following to your Cargo.tml to get is a dependency (check that version is the latest!).
+```toml
+[dependency]
+is31fl3728-rs="0.9.0"
+```
+
 ## Controller support
 
-This is a platform agnostic Rust driver for the IS31FL3728 matrix led driver. 
+This crate provides a platform-agnostic driver for the IS31FL3728 LED Matrix.
 Led driver uses I2C.
 
 Support all features of driver:
@@ -28,7 +35,25 @@ This is why you can't use a 8x8 led matrix editor like this one:
 https://xantorohara.github.io/led-matrix-editor/ . 
 The library provides a method "draw_bitmap" which solves this trouble.
 
-## Example of usage
+### Instantiating
+Create an instance of driver with the `new` method, by passing initialized I2C and configuration
+```rust
+let i2c = // depends of your MCU and HAL
+let matrix_addr: u8 = 0x60;
+let mut led_matrix = IS31FL3728::new(i2c, matrix_addr, MatrixDimensions::M8x8, false).unwrap();
+```
+Driver is ready to use after creating.
+
+### Main methods
+
+* `draw_column` - show column on the matrix
+* `draw` - show several columns on the matrix. Use this method for quick update matrix.
+* `draw_bitmap` - like `draw`, but elements in the array are rows. So you can easy use online led matrix editors
+See more methods for full control. 
+
+### Complex example
+Based on [stm32f4xx-hal](https://github.com/stm32-rs/stm32f4xx-hal)
+
 ```rust
 #![deny(unsafe_code)]
 #![no_main]
@@ -62,6 +87,7 @@ fn main() -> ! {
     let pb8_scl = gpiob.pb8;
     let pb9_sda = gpiob.pb9;
 
+    // Initiation of I2C
     let i2c1 = I2c::new(
         dp.I2C1,
         (pb8_scl, pb9_sda),

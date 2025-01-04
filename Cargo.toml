@@ -9,6 +9,7 @@ description = "Rust embedded driver for is31fl3728 - led-matrix controller"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
 rust-version = "1.83.0"
+repository = "https://github.com/leonidv/is31fl3728-rs"
 
 include = [
     "/src/*.rs",
