@@ -21,6 +21,7 @@ Support all features of driver:
 
 See IS31FL3728 data sheet for details.
 
+
 ## Crate's features
 This crate based on [`embedded-hal`] version 1.0. 
 
@@ -51,8 +52,12 @@ Driver is ready to use after creating.
 * `draw_bitmap` - like `draw`, but elements in the array are rows. So you can easy use online led matrix editors
 See more methods for full control. 
 
-### Complex example
-Based on [stm32f4xx-hal](https://github.com/stm32-rs/stm32f4xx-hal)
+### Examples
+Folder [examples](examples) contains full examples:
+* [stm32](examples/stm32-f401RE) - tested on Nulceo-64 F401RE
+
+
+#### Quick code (STM32)
 
 ```rust
 #![deny(unsafe_code)]
@@ -131,3 +136,8 @@ fn main() -> ! {
     }
 }
 ```
+
+Result of application:
+
+![Example_of_application](media/led-8x8.GIF)
+
