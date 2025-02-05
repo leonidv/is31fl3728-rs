@@ -1,0 +1,36 @@
+[package]
+name = "stm32-i2c-led-matrix"
+version = "0.1.0"
+authors = ["Leonid Vygovskiy <leonid.vygovskiy@gmail.com>"]
+edition = "2021"
+
+[dependencies]
+cortex-m = {version = "0.7.7", features = ["critical-section-single-core"]}
+cortex-m-rt = "0.7"
+panic-halt = "1.0.0"
+
+is31fl3728-rs= {path = "../../", features = ["rtt-debug", "embedded-graphics"]}
+
+rtt-target = "0.6.1"
+panic-rtt-target = "0.2.0"
+embedded-graphics = "0.8.1"
+tinybmp = "0.6.0"
+
+
+[dependencies.stm32f4xx-hal]
+version = "0.22.1"
+features = ["stm32f401", ]
+
+[build-dependencies]
+reqwest = { version = "0.12.12", features = ["blocking"] }
+
+# Set the default for dependencies.
+[profile.dev.package."*"]
+opt-level = "s"
+
+[profile.release]
+codegen-units = 1
+incremental = false
+debug = true
+lto = true
+opt-level = "s"

@@ -1,7 +1,7 @@
 [package]
 name = "is31fl3728-rs"
 authors = ["Leonid Vygovskiy <leonid.vygovskiy@gmail.com>"]
-version = "1.0.0"
+version = "1.1.0"
 edition = "2021"
 categories = ["embedded", "hardware-support", "no-std"]
 keywords = ["is31fl3728", "led-matrix", "driver", "embedded-hal-driver"]
@@ -22,7 +22,9 @@ include = [
 [dependencies]
 embedded-hal = "1.0.0"
 rtt-target = {version = "0.6.1", optional = true}
+embedded-graphics-core = {version = "0.4.0", optional = true}
+
 
 [features]
 rtt-debug=["dep:rtt-target"]
-
+embedded-graphics=["dep:embedded-graphics-core"]

@@ -30,6 +30,9 @@ This crate based on [`embedded-hal`] version 1.0.
 >[!IMPORTANT]
 > You MUST initialize rtt in your application
 
+- `embedded-graphics` - enable support of [embedded-graphics](https://github.com/embedded-graphics/embedded-graphics). 
+  See example 
+
 ## Crate's specifics
 The IS31FL3728 uses columns, not rows, as the more popular MAX7219 does. 
 This is why you can't use a 8x8 led matrix editor like this one: 
@@ -55,6 +58,7 @@ See more methods for full control.
 ### Examples
 Folder [examples](examples) contains full examples:
 * [stm32](examples/stm32-f401RE) - tested on Nulceo-64 F401RE
+* [embedded-graphics](examples/embedded-graphics/) - simple sprite's animation.
 
 
 #### Quick code (STM32)
