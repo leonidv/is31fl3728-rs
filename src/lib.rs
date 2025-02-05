@@ -8,6 +8,7 @@ use core::fmt::Debug;
 
 use embedded_hal::i2c::I2c;
 
+#[cfg(feature = "rtt-debug")]
 use rtt_target::debug_rprintln;
 
 //#[derive(Debug)]
