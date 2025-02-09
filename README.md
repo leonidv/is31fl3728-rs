@@ -1,6 +1,6 @@
 # Rust IS31FL3728 audio modulated matrix led driver
 [![Crates.io Version](https://img.shields.io/crates/v/is31fl3728-rs)](https://crates.io/crates/is31fl3728-rs)
-[![API](https://docs.rs/is31fl3728-rs/1.1.0/is31fl3728_rs/)](https://docs.rs/is31fl3728-rs/latest/is31fl3728_rs/)
+[![API](https://docs.rs/is31fl3728-rs/badge.svg)](https://docs.rs/is31fl3728-rs/latest/is31fl3728_rs/)
 
 ## Usage
 Add the following to your Cargo.tml to get is a dependency (check that version is the latest!).
