@@ -2,6 +2,14 @@
 [![Crates.io Version](https://img.shields.io/crates/v/is31fl3728-rs)](https://crates.io/crates/is31fl3728-rs)
 [![API](https://docs.rs/is31fl3728-rs/badge.svg)](https://docs.rs/is31fl3728-rs/latest/is31fl3728_rs/)
 
+[IS31FL3728](https://www.lumissil.com/applications/industrial/appliance/major-appliances/range-hood/is31fl3728)
+is a general purpose 8×8 LED matrix driver which features an audio frequency equalizer 
+(EQ) mode or a general LED dot matrix display mode. 
+The matrix picture brightness can be modulated by audio. 
+In either the audio EQ mode or matrix display mode, the array is internally scanned, 
+and requires only one-time programming, thus eliminating the need for real time 
+system resource utilization. 
+
 ## Usage
 Add the following to your Cargo.tml to get is a dependency (check that version is the latest!).
 ```toml
